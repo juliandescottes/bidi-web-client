@@ -21,68 +21,11 @@
 
     <div id="commands-container">
       <h4>Send WebDriver BiDi Commands</h4>
-      <div class="command" data-command="session.new">
-        <span class="command-info">method</span>
-        <span class="command-method">session.new</span>
-        <span class="command-info">params</span>
-        <input type="text" name="params" placeholder='{ }'>
-        <button class="command-send" >send</button>
-      </div>
-      <div class="command" data-command="session.subscribe">
-        <span class="command-info">method</span>
-        <span class="command-method">session.subscribe</span>
-        <span class="command-info">params</span>
-        <input type="text" name="params" placeholder='{ events: ["log.entryAdded"] }'>
-        <button class="command-send">send</button>
-      </div>
-      <div class="command" data-command="session.unsubscribe">
-        <span class="command-info">method</span>
-        <span class="command-method">session.unsubscribe</span>
-        <span class="command-info">params</span>
-        <input type="text" name="params" placeholder='{ events: ["log.entryAdded"] }'>
-        <button class="command-send">send</button>
-      </div>
-      <div class="command" data-command="browsingContext.create">
-        <span class="command-info">method</span>
-        <span class="command-method">browsingContext.create</span>
-        <span class="command-info">params</span>
-        <input type="text" name="params" placeholder='{ type: "tab" }'>
-        <button class="command-send">send</button>
-      </div>
-      <div class="command" data-command="browsingContext.close">
-        <span class="command-info">method</span>
-        <span class="command-method">browsingContext.close</span>
-        <span class="command-info">params</span>
-        <input type="text" name="params" placeholder='{ context: id }'>
-        <button class="command-send">send</button>
-      </div>
-      <div class="command" data-command="browsingContext.getTree">
-        <span class="command-info">method</span>
-        <span class="command-method">browsingContext.getTree</span>
-        <span class="command-info">params</span>
-        <input type="text" name="params" placeholder='{ root: id }'>
-        <button class="command-send">send</button>
-      </div>
-      <div class="command" data-command="browsingContext.navigate">
-        <span class="command-info">method</span>
-        <span class="command-method">browsingContext.navigate</span>
-        <span class="command-info">params</span>
-        <input type="text" name="params" placeholder='{ context: id, url: "http://some.url" }'>
-        <button class="command-send">send</button>
-      </div>
-      <div class="command" data-command="CUSTOM">
-        <span class="command-info">method</span>
-        <input type="text" name="method" placeholder="">
-        <span class="command-info">params</span>
-        <input type="text" name="params" placeholder='{ key: "value" }'>
-        <button class="command-send">send</button>
-      </div>
     </div>
     <button id="add-command-button">add new command</button>
   </div>
   <div class="separator"></div>
   <div class="wrapper">
-
     <div id="requests-container">
       <div class="container-header" style="display: flex; align-items: center">
         <h4>WebDriver BiDi Protocol Traffic</h4>
@@ -94,20 +37,8 @@
         </div>
       </div>
     </div>
-    
-    <div id="events-container">
-      <div class="container-header" style="display: flex; align-items: center">
-        <h4>Log events</h4>
-        <button class="clear-button" data-container="events">clear</button>
-      </div>
-      <div id="events-log">
-        <div class="log event" id="fake-event">
-          <span style="font-style: italic;">No log event yet!</span>
-        </div>
-      </div>
-    </div>
   </div>
 
-  <script type="text/javascript" src="script.js"></script>
+  <script type="module" src="scripts/app.js"></script>
 </body>
 </html>
