@@ -189,6 +189,14 @@ function clearEvents() {
   }
 }));
 
+const helpArgumentsEl = document.getElementById("connection-help-arguments");
+helpArgumentsEl.textContent = helpArgumentsEl.textContent.replace(
+  "ORIGIN_TOKEN",
+  window.location.origin
+);
+
+// Add instructions in the console to explain how to use the client's APIs using
+// plain JavaScript.
 console.log(`Hi! 
 
 The WebDriver BiDi Glitch Client exposes a 'sendCommand' method to write scripts: 
