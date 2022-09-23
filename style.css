@@ -1,0 +1,205 @@
+body.theme-selenium {
+  --highlight: #00ae00;
+}
+
+body.theme-firefox {
+  --highlight: #ff7a3a;
+}
+
+body.theme-purple {
+  --highlight: #4c268f;
+}
+
+html {
+  font-family: Arial;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+h3 {
+  background: var(--highlight);
+  margin: 0;
+  padding: 20px;
+  color: white;
+  font-size: 30px;
+}
+
+.separator {
+  background: var(--highlight);
+  width: 100%;
+  height: 3px;
+}
+
+button {
+  border: 0;
+  background: var(--highlight);
+  border-radius: 2px;
+  height: 22px;
+  padding: 0 10px;
+  color: white;
+  cursor: pointer;
+}
+
+button[disabled] {
+  background: #b9b9b9;
+  cursor: default;
+}
+
+#connect {
+  width: 100px;
+  text-align: center;
+}
+
+#connection-help {
+  margin-top: 10px;
+  font-size: 0.8em;
+}
+
+#connection-help span {
+  background-color: #AAA;
+  color: white;
+  padding: 3px 6px;
+  border-radius: 2px;
+}
+
+.wrapper {
+  padding: 0 20px 20px 20px;
+}
+
+.command {
+  display: grid;
+  grid-template-columns: max-content 200px max-content auto max-content;
+  column-gap: 10px;
+  border: 1px solid gray;
+  border-bottom-width: 0;
+  height: 30px;
+  align-items: center;
+  padding: 0 5px;
+}
+
+.command:hover {
+  background-color: rgb(242, 255, 248);
+}
+
+.command:last-child {
+  border-bottom-width: 1px;
+}
+
+.command-send {
+  justify-self: end;
+}
+
+.command-info {
+  font-size: 0.8em;
+  padding: 4px 7px;
+  border-radius: 3px;
+  color: #555;
+  background: #eee;
+}
+
+.command-method, .command-params {
+  font-family: monaco;
+  font-size: 0.8em;
+}
+
+#add-command-button {
+  margin-top: 10px;
+}
+
+.container-header {
+  display: flex; 
+  align-items: center;
+}
+
+.container-header button {
+  margin-left: 10px;
+}
+
+.log {
+  min-height: 30px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 70px auto;
+  align-content: center;
+  font-size: 0.8em;
+  column-gap: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.log:first-child {
+  border-top: 1px solid #eee;
+}
+
+.log.event {
+  grid-template-columns: 30px auto 200px;
+  border: 1px solid #ddd;
+  border-width: 1px 0 0 0;
+}
+
+.log.event:last-child {
+  border-width: 1px 0 1px 0;
+}
+
+.log-text, 
+.log-id {
+  margin: 6px 0;
+}
+
+.log-text {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: monaco;
+  font-size: 1.1em;
+}
+
+.expanded .log-text {
+  white-space: pre;
+  max-height: 200px;
+  overflow: auto;
+}
+
+.log-id {
+  justify-self: start;
+  line-height: 18px;
+  border-radius: 3px;
+  color: #555555;
+  background: #eeeeee;
+  padding: 0 5px;
+  width: 70px;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+}
+
+.log-id::after {
+  content: "▶︎";
+  font-size: 8px;
+  display: inline-block;
+  width: 12px;
+  right: 0;
+  position: absolute;
+}
+
+.expanded .log-id::after {
+  content: "▼";
+}
+
+#fake-event, #fake-request {
+  grid-template-columns: auto;
+}
+
+.log.event .log-id {
+  width: 32px;
+  border-radius: 3px;
+  color: #555;
+  background: #eee;
+}
+
+.log-time {
+  justify-self: end;
+  line-height: 20px;
+}
