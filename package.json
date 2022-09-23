@@ -1,0 +1,24 @@
+{
+  "name": "bidi-web-client",
+  "version": "0.0.1",
+  "description": "Basic web client for webdriver bidi",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juliandescottes/bidi-web-client.git"
+  },
+  "author": "jdescottes@mozilla.com",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/juliandescottes/bidi-web-client/issues"
+  },
+  "homepage": "https://github.com/juliandescottes/bidi-web-client#readme",
+  "devDependencies": {
+    "eslint": "^8.23.1",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.3.0",
+    "eslint-plugin-promise": "^6.0.1",
+    "prettier": "^2.7.1"
+  }
+}
