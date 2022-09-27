@@ -28,19 +28,29 @@ class App extends EventEmitter {
   init() {
     this.#commandLine.init();
     this.#ui.init();
+    if (localStorage.getItem("sessionId")) {
+      this.connectClient(
+        localStorage.getItem("sessionHost"),
+        localStorage.getItem("sessionId")
+      );
+    }
   }
 
-  connectClient(host) {
-    this.#websocketClient.open(`ws://${host}/session`);
+  connectClient(host, id) {
+    this.#websocketClient.open(`ws://${host}/session${id ? "/" + id : ""}`);
     this.#websocketClient.on("close", (_, data) =>
       this.emit("websocket-close", data)
     );
-    this.#websocketClient.on("open", (_, data) =>
-      this.emit("websocket-open", data)
-    );
-    this.#websocketClient.on("message", (_, data) =>
-      this.emit("websocket-message", data)
-    );
+    this.#websocketClient.on("open", (_, data) => {
+      localStorage.setItem("sessionHost", host);
+      this.emit("websocket-open", data);
+    });
+    this.#websocketClient.on("message", (_, data) => {
+      if (data?.result?.sessionId) {
+        localStorage.setItem("sessionId", data?.result?.sessionId);
+      }
+      this.emit("websocket-message", data);
+    });
   }
 
   sendMessage(msg) {
