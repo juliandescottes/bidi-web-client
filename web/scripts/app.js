@@ -18,7 +18,6 @@ class App extends EventEmitter {
     this.#commandLine = new CommandLine(this);
     this.#reqId = 1;
     this.#ui = new UI(this);
-    this.#websocketClient = new WebSocketClient(this);
   }
 
   get wsClient() {
@@ -31,6 +30,7 @@ class App extends EventEmitter {
   }
 
   connectClient(host) {
+    this.#websocketClient = new WebSocketClient(this);
     this.#websocketClient.open(`ws://${host}/session`);
     this.#websocketClient.on("close", (_, data) =>
       this.emit("websocket-close", data)
