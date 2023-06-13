@@ -18,8 +18,8 @@ export class UI {
   }
 
   init() {
-    for (const { method, placeholder } of Object.values(COMMANDS)) {
-      const commandEl = this.#createCommandElement(method, placeholder);
+    for (const { method, placeholder, value } of Object.values(COMMANDS)) {
+      const commandEl = this.#createCommandElement(method, placeholder, value);
       document.querySelector("#commands-container").appendChild(commandEl);
     }
     document
@@ -60,13 +60,14 @@ export class UI {
     }
   }
 
-  #createCommandElement(method, placeholder) {
+  #createCommandElement(method, placeholder, value) {
     const element = document.createElement("div");
     element.className = "command";
     element.dataset.command = method;
     element.innerHTML = this.#getCommandElementMarkup(
       `<span class="command-method">${method}</span>`,
-      placeholder
+      placeholder,
+      value
     );
 
     return element;
@@ -85,12 +86,15 @@ export class UI {
     return element;
   }
 
-  #getCommandElementMarkup(methodMarkup, placeholder) {
+  #getCommandElementMarkup(methodMarkup, placeholder, value) {
     return `
       <span class="command-info">method</span>
       ${methodMarkup}
       <span class="command-info">params</span>
-      <input type="text" name="params" placeholder='${placeholder}'>
+      <input type="text" name="params"
+             placeholder='${placeholder}'
+             ${value ? "value='" + value + "'" : ""}
+      >
       <button class="command-send">send</button>`;
   }
 
