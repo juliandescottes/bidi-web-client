@@ -88,7 +88,7 @@ button[disabled] {
 }
 
 .command:hover {
-  background-color: rgb(242, 255, 248);
+  background-color: rgb(200, 245, 200);
 }
 
 .command:first-child {
