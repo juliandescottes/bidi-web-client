@@ -1,44 +1,56 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>BiDi Client</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
-</head>
-<body class="theme-selenium">
-  <h3>WebDriver BiDi Demo Client</h3>
-  <div class="wrapper">
-    <div id="connection-container">
-      <h4>Connect to Firefox</h4>
-      <div>
-        <input type=text id=host placeholder="hostname:port" value="localhost:9222"/>
-        <button id=connect>connect</button>
+  <head>
+    <meta charset="utf-8" />
+    <title>BiDi Client</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body class="theme-selenium">
+    <h3>WebDriver BiDi Demo Client</h3>
+    <div class="wrapper">
+      <div id="connection-container">
+        <h4>Connect to Firefox</h4>
+        <div>
+          <input
+            type="text"
+            id="host"
+            placeholder="hostname:port"
+            value="localhost:9222"
+          />
+          <button id="connect">connect</button>
+        </div>
+        <div id="connection-help">
+          Start Firefox with
+          <span id="connection-help-arguments"
+            >--remote-debugging-port --remote-allow-origins=ORIGIN_TOKEN</span
+          >
+        </div>
       </div>
-      <div id="connection-help">Start Firefox with 
-        <span id="connection-help-arguments">--remote-debugging-port --remote-allow-origins=ORIGIN_TOKEN</span>
-      </div>
-    </div>
 
-    <div id="commands-container">
-      <h4>Send WebDriver BiDi Commands</h4>
-    </div>
-    <button id="add-command-button">add new command</button>
-  </div>
-  <div class="separator"></div>
-  <div class="wrapper">
-    <div id="requests-container">
-      <div class="container-header" style="display: flex; align-items: center">
-        <h4>WebDriver BiDi Protocol Traffic</h4>
-        <button class="clear-button" data-container="requests">clear</button>
+      <div id="commands-container">
+        <h4>Send WebDriver BiDi Commands</h4>
+        <div id="commands-list"></div>
       </div>
-      <div id="requests-log">
-        <div class="log event" id="fake-request">
-          <span style="font-style: italic;">No traffic yet!</span>
+      <button id="add-command-button">add new command</button>
+    </div>
+    <div class="separator"></div>
+    <div class="wrapper">
+      <div id="requests-container">
+        <div
+          class="container-header"
+          style="display: flex; align-items: center"
+        >
+          <h4>WebDriver BiDi Protocol Traffic</h4>
+          <button class="clear-button" data-container="requests">clear</button>
+        </div>
+        <div id="requests-log">
+          <div class="log event" id="fake-request">
+            <span style="font-style: italic">No traffic yet!</span>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <script type="module" src="scripts/app.js"></script>
-</body>
+    <script type="module" src="scripts/app.js"></script>
+  </body>
 </html>

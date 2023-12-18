@@ -8,35 +8,49 @@ export class UI {
   #app;
   #customCommandId;
   #fakeRequest;
+  #isConnected;
   #nodeBuilder;
 
   constructor(app) {
     this.#app = app;
     this.#customCommandId = 1;
     this.#fakeRequest = document.querySelector("#fake-request");
-    this.#nodeBuilder = document.createElement("div");;
+    this.#isConnected = false;
+    this.#nodeBuilder = document.createElement("div");
   }
 
   init() {
     for (const { method, placeholder, value } of Object.values(COMMANDS)) {
       const commandEl = this.#createCommandElement(method, placeholder, value);
-      document.querySelector("#commands-container").appendChild(commandEl);
+      document.querySelector("#commands-list").appendChild(commandEl);
     }
     document
-      .querySelector("#commands-container")
+      .querySelector("#commands-list")
       .appendChild(this.#createCustomCommandElement());
 
-    const helpArgumentsEl = document.getElementById("connection-help-arguments");
+    const helpArgumentsEl = document.getElementById(
+      "connection-help-arguments",
+    );
     helpArgumentsEl.textContent = helpArgumentsEl.textContent.replace(
       "ORIGIN_TOKEN",
-      window.location.origin
+      window.location.origin,
     );
 
-    document.querySelector("#add-command-button").addEventListener("click", this.#onAddCommandClick);
-    document.querySelector("#commands-container").addEventListener("click", this.#onCommandsContainerClick);
-    document.querySelector("#connect").addEventListener("click", this.#onConnectClick);
-    document.querySelector("#requests-log").addEventListener("click", this.#onRequestsLogClick);
-    document.querySelector(".clear-button").addEventListener("click", this.#onClearButtonClick);
+    document
+      .querySelector("#add-command-button")
+      .addEventListener("click", this.#onAddCommandClick);
+    document
+      .querySelector("#commands-list")
+      .addEventListener("click", this.#onCommandsContainerClick);
+    document
+      .querySelector("#connect")
+      .addEventListener("click", this.#onConnectClick);
+    document
+      .querySelector("#requests-log")
+      .addEventListener("click", this.#onRequestsLogClick);
+    document
+      .querySelector(".clear-button")
+      .addEventListener("click", this.#onClearButtonClick);
 
     this.#app.on("websocket-close", this.#onWebSocketClose);
     this.#app.on("websocket-open", this.#onWebSocketOpen);
@@ -50,13 +64,16 @@ export class UI {
     this.#nodeBuilder.querySelector(".log-text").textContent = JSON.stringify(
       msg,
       null,
-      "  "
+      "  ",
     );
     const container = document.querySelector("#requests-log");
     if (!container.firstChild) {
       container.appendChild(this.#nodeBuilder.firstChild);
     } else {
-      container.insertBefore(this.#nodeBuilder.firstChild, container.firstChild);
+      container.insertBefore(
+        this.#nodeBuilder.firstChild,
+        container.firstChild,
+      );
     }
   }
 
@@ -67,7 +84,7 @@ export class UI {
     element.innerHTML = this.#getCommandElementMarkup(
       `<span class="command-method">${method}</span>`,
       placeholder,
-      value
+      value,
     );
 
     return element;
@@ -80,7 +97,7 @@ export class UI {
     this.#customCommandId++;
     element.innerHTML = this.#getCommandElementMarkup(
       `<input type="text" name="method" placeholder="">`,
-      `{ key: "value" }`
+      `{ key: "value" }`,
     );
 
     return element;
@@ -95,7 +112,9 @@ export class UI {
              placeholder='${placeholder}'
              ${value ? "value='" + value + "'" : ""}
       >
-      <button class="command-send">send</button>`;
+      <button class="command-send" ${
+        this.#isConnected ? "" : "disabled"
+      }>send</button>`;
   }
 
   #logTemplate(type, id) {
@@ -107,19 +126,19 @@ export class UI {
 
   #onAddCommandClick = async () => {
     const commandEl = this.#createCustomCommandElement();
-    document.querySelector("#commands-container").appendChild(commandEl);
-  }
+    document.querySelector("#commands-list").appendChild(commandEl);
+  };
 
   #onClearButtonClick = async () => {
     const container = document.querySelector("#requests-log");
     container.innerHTML = "";
     container.appendChild(this.#fakeRequest);
-  }
+  };
 
   #onConnectClick = async () => {
     const host = document.querySelector("#host").value;
     this.#app.connectClient(host);
-  }
+  };
 
   #onCommandsContainerClick = async (e) => {
     if (
@@ -127,7 +146,8 @@ export class UI {
       e.target.closest(".command")
     ) {
       const commandEl = e.target.closest(".command");
-      const params = commandEl.querySelector("input[name=params]").value || "{}";
+      const params =
+        commandEl.querySelector("input[name=params]").value || "{}";
       if (commandEl.dataset.command.startsWith("CUSTOM")) {
         await this.#app.sendMessage({
           method: commandEl.querySelector("input[name=method]").value,
@@ -140,7 +160,7 @@ export class UI {
         });
       }
     }
-  }
+  };
 
   #onRequestsLogClick = async (e) => {
     if (!e.target.classList.contains("log-id")) {
@@ -153,25 +173,37 @@ export class UI {
     }
 
     requestEl.classList.toggle("expanded");
-  }
+  };
 
   #onRequestSent = async (e, data) => {
     this.#addTraffic("request", data.msg);
-  }
+  };
 
   #onWebSocketClose = () => {
+    this.#isConnected = false;
     document.querySelector("#connect").removeAttribute("disabled");
     document.querySelector("#host").removeAttribute("disabled");
+    for (const button of document.querySelectorAll("#commands-list button")) {
+      button.setAttribute("disabled", "true");
+    }
+
     document.querySelector("#connect").innerText = "connect";
+
     this.#addTraffic("ws", "WebSocket closed");
-  }
+  };
 
   #onWebSocketOpen = () => {
+    this.#isConnected = true;
     document.querySelector("#connect").setAttribute("disabled", "true");
     document.querySelector("#host").setAttribute("disabled", "true");
+    for (const button of document.querySelectorAll("#commands-list button")) {
+      button.removeAttribute("disabled");
+    }
+
     document.querySelector("#connect").innerText = "connected";
+
     this.#addTraffic("ws", "WebSocket open");
-  }
+  };
 
   #onWebSocketMessage = (eventName, data) => {
     if (data.id) {
@@ -179,5 +211,5 @@ export class UI {
     } else {
       this.#addTraffic("event", data);
     }
-  }
+  };
 }
