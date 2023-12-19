@@ -7,7 +7,7 @@ const WELCOME_MESSAGE = `Hi!
 The WebDriver BiDi Glitch Client exposes a 'sendCommand' method to write scripts:
 
   (async function() {
-    await sendCommand("session.new", {});
+    await sendCommand("session.new", { capabilities: {} });
     let res = await sendCommand("browsingContext.getTree", {});
 
     const context = res.result.contexts[0].context;
