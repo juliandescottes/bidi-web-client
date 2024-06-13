@@ -29,17 +29,24 @@ class App extends EventEmitter {
     this.#ui.init();
   }
 
-  connectClient(host) {
+  connectClient(url) {
     this.#websocketClient = new WebSocketClient(this);
-    this.#websocketClient.open(`ws://${host}/session`);
+    if (url.includes("/session")) {
+      // Assume the user provided the full path, potentially connecting to
+      // host/session/session_id
+      this.#websocketClient.open(`ws://${url}`);
+    } else {
+      // Append /session to create a new session
+      this.#websocketClient.open(`ws://${url}/session`);
+    }
     this.#websocketClient.on("close", (_, data) =>
-      this.emit("websocket-close", data)
+      this.emit("websocket-close", data),
     );
     this.#websocketClient.on("open", (_, data) =>
-      this.emit("websocket-open", data)
+      this.emit("websocket-open", data),
     );
     this.#websocketClient.on("message", (_, data) =>
-      this.emit("websocket-message", data)
+      this.emit("websocket-message", data),
     );
   }
 

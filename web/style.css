@@ -49,6 +49,10 @@ button[disabled] {
   cursor: default;
 }
 
+#url {
+  width: 300px;
+}
+
 #connect {
   width: 100px;
   text-align: center;
