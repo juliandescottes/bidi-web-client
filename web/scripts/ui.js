@@ -136,8 +136,8 @@ export class UI {
   };
 
   #onConnectClick = async () => {
-    const host = document.querySelector("#host").value;
-    this.#app.connectClient(host);
+    const url = document.querySelector("#url").value;
+    this.#app.connectClient(url);
   };
 
   #onCommandsContainerClick = async (e) => {
@@ -182,7 +182,7 @@ export class UI {
   #onWebSocketClose = () => {
     this.#isConnected = false;
     document.querySelector("#connect").removeAttribute("disabled");
-    document.querySelector("#host").removeAttribute("disabled");
+    document.querySelector("#url").removeAttribute("disabled");
     for (const button of document.querySelectorAll("#commands-list button")) {
       button.setAttribute("disabled", "true");
     }
@@ -195,7 +195,7 @@ export class UI {
   #onWebSocketOpen = () => {
     this.#isConnected = true;
     document.querySelector("#connect").setAttribute("disabled", "true");
-    document.querySelector("#host").setAttribute("disabled", "true");
+    document.querySelector("#url").setAttribute("disabled", "true");
     for (const button of document.querySelectorAll("#commands-list button")) {
       button.removeAttribute("disabled");
     }
