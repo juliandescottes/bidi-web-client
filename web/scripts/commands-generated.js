@@ -13,45 +13,6 @@
  */
 
 export const COMMAND_MODULES = {
-  "session": {
-    "commands": {
-      "session.status": {
-        "method": "session.status",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-session-status",
-        "params": {},
-        "placeholder": "{}"
-      },
-      "session.new": {
-        "method": "session.new",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-session-new",
-        "params": {
-          "capabilities": {
-            "type": "session.CapabilitiesRequest",
-            "required": true
-          }
-        },
-        "placeholder": "{\n  \"capabilities\": {}\n}"
-      },
-      "session.end": {
-        "method": "session.end",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-session-end",
-        "params": {},
-        "placeholder": "{}"
-      },
-      "session.subscribe": {
-        "method": "session.subscribe",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-session-subscribe",
-        "params": {},
-        "placeholder": "{}"
-      },
-      "session.unsubscribe": {
-        "method": "session.unsubscribe",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-session-unsubscribe",
-        "params": {},
-        "placeholder": "{}"
-      }
-    }
-  },
   "browser": {
     "commands": {
       "browser.close": {
@@ -100,7 +61,7 @@ export const COMMAND_MODULES = {
             "required": true
           }
         },
-        "placeholder": "{\n  \"userContext\": \"\"\n}"
+        "placeholder": "{\"userContext\":\"\"}"
       },
       "browser.setClientWindowState": {
         "method": "browser.setClientWindowState",
@@ -111,7 +72,7 @@ export const COMMAND_MODULES = {
             "required": true
           }
         },
-        "placeholder": "{\n  \"clientWindow\": {}\n}"
+        "placeholder": "{\"clientWindow\":{}}"
       },
       "browser.setDownloadBehavior": {
         "method": "browser.setDownloadBehavior",
@@ -126,7 +87,7 @@ export const COMMAND_MODULES = {
             "required": false
           }
         },
-        "placeholder": "{\n  \"downloadBehavior\": {}\n}"
+        "placeholder": "{\"downloadBehavior\":{}}"
       }
     }
   },
@@ -141,7 +102,7 @@ export const COMMAND_MODULES = {
             "required": true
           }
         },
-        "placeholder": "{\n  \"context\": \"\"\n}"
+        "placeholder": "{\"context\":\"\"}"
       },
       "browsingContext.captureScreenshot": {
         "method": "browsingContext.captureScreenshot",
@@ -164,7 +125,7 @@ export const COMMAND_MODULES = {
             "required": false
           }
         },
-        "placeholder": "{\n  \"context\": \"\"\n}"
+        "placeholder": "{\"context\":\"\"}"
       },
       "browsingContext.close": {
         "method": "browsingContext.close",
@@ -179,7 +140,7 @@ export const COMMAND_MODULES = {
             "required": false
           }
         },
-        "placeholder": "{\n  \"context\": \"\"\n}"
+        "placeholder": "{\"context\":\"\"}"
       },
       "browsingContext.create": {
         "method": "browsingContext.create",
@@ -202,7 +163,7 @@ export const COMMAND_MODULES = {
             "required": false
           }
         },
-        "placeholder": "{\n  \"type\": \"\"\n}"
+        "placeholder": "{\"type\":\"\"}"
       },
       "browsingContext.getTree": {
         "method": "browsingContext.getTree",
@@ -236,7 +197,7 @@ export const COMMAND_MODULES = {
             "required": false
           }
         },
-        "placeholder": "{\n  \"context\": \"\"\n}"
+        "placeholder": "{\"context\":\"\"}"
       },
       "browsingContext.locateNodes": {
         "method": "browsingContext.locateNodes",
@@ -263,7 +224,7 @@ export const COMMAND_MODULES = {
             "required": false
           }
         },
-        "placeholder": "{\n  \"context\": \"\",\n  \"locator\": \"\"\n}"
+        "placeholder": "{\"context\":\"\",\"locator\":\"\"}"
       },
       "browsingContext.navigate": {
         "method": "browsingContext.navigate",
@@ -282,7 +243,7 @@ export const COMMAND_MODULES = {
             "required": false
           }
         },
-        "placeholder": "{\n  \"context\": \"\",\n  \"url\": \"\"\n}"
+        "placeholder": "{\"context\":\"\",\"url\":\"\"}"
       },
       "browsingContext.print": {
         "method": "browsingContext.print",
@@ -321,7 +282,7 @@ export const COMMAND_MODULES = {
             "required": false
           }
         },
-        "placeholder": "{\n  \"context\": \"\"\n}"
+        "placeholder": "{\"context\":\"\"}"
       },
       "browsingContext.reload": {
         "method": "browsingContext.reload",
@@ -340,7 +301,7 @@ export const COMMAND_MODULES = {
             "required": false
           }
         },
-        "placeholder": "{\n  \"context\": \"\"\n}"
+        "placeholder": "{\"context\":\"\"}"
       },
       "browsingContext.setViewport": {
         "method": "browsingContext.setViewport",
@@ -378,7 +339,7 @@ export const COMMAND_MODULES = {
             "required": true
           }
         },
-        "placeholder": "{\n  \"context\": \"\",\n  \"delta\": 0\n}"
+        "placeholder": "{\"context\":\"\",\"delta\":0}"
       }
     }
   },
@@ -401,7 +362,7 @@ export const COMMAND_MODULES = {
             "required": false
           }
         },
-        "placeholder": "{\n  \"theme\": {}\n}"
+        "placeholder": "{\"theme\":{}}"
       },
       "emulation.setGeolocationOverride": {
         "method": "emulation.setGeolocationOverride",
@@ -435,32 +396,13 @@ export const COMMAND_MODULES = {
             "required": false
           }
         },
-        "placeholder": "{\n  \"locale\": \"\"\n}"
+        "placeholder": "{\"locale\":\"\"}"
       },
       "emulation.setNetworkConditions": {
         "method": "emulation.setNetworkConditions",
         "specUrl": "https://w3c.github.io/webdriver-bidi/#command-emulation-set-network-conditions",
         "params": {},
         "placeholder": "{}"
-      },
-      "emulation.setScreenSettingsOverride": {
-        "method": "emulation.setScreenSettingsOverride",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-emulation-set-screen-settings-override",
-        "params": {
-          "screenArea": {
-            "type": "emulation.ScreenArea | null",
-            "required": true
-          },
-          "contexts": {
-            "type": "[+browsingContext.BrowsingContext]",
-            "required": false
-          },
-          "userContexts": {
-            "type": "[+browser.UserContext]",
-            "required": false
-          }
-        },
-        "placeholder": "{\n  \"screenArea\": {}\n}"
       },
       "emulation.setScreenOrientationOverride": {
         "method": "emulation.setScreenOrientationOverride",
@@ -479,14 +421,14 @@ export const COMMAND_MODULES = {
             "required": false
           }
         },
-        "placeholder": "{\n  \"screenOrientation\": {}\n}"
+        "placeholder": "{\"screenOrientation\":{}}"
       },
-      "emulation.setUserAgentOverride": {
-        "method": "emulation.setUserAgentOverride",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-emulation-set-user-agent-override",
+      "emulation.setScreenSettingsOverride": {
+        "method": "emulation.setScreenSettingsOverride",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-emulation-set-screen-settings-override",
         "params": {
-          "userAgent": {
-            "type": "text | null",
+          "screenArea": {
+            "type": "emulation.ScreenArea | null",
             "required": true
           },
           "contexts": {
@@ -498,7 +440,7 @@ export const COMMAND_MODULES = {
             "required": false
           }
         },
-        "placeholder": "{\n  \"userAgent\": \"\"\n}"
+        "placeholder": "{\"screenArea\":{}}"
       },
       "emulation.setScriptingEnabled": {
         "method": "emulation.setScriptingEnabled",
@@ -517,7 +459,7 @@ export const COMMAND_MODULES = {
             "required": false
           }
         },
-        "placeholder": "{\n  \"enabled\": \"\"\n}"
+        "placeholder": "{\"enabled\":\"\"}"
       },
       "emulation.setTimezoneOverride": {
         "method": "emulation.setTimezoneOverride",
@@ -536,7 +478,7 @@ export const COMMAND_MODULES = {
             "required": false
           }
         },
-        "placeholder": "{\n  \"timezone\": \"\"\n}"
+        "placeholder": "{\"timezone\":\"\"}"
       },
       "emulation.setTouchOverride": {
         "method": "emulation.setTouchOverride",
@@ -555,7 +497,75 @@ export const COMMAND_MODULES = {
             "required": false
           }
         },
-        "placeholder": "{\n  \"maxTouchPoints\": 0\n}"
+        "placeholder": "{\"maxTouchPoints\":0}"
+      },
+      "emulation.setUserAgentOverride": {
+        "method": "emulation.setUserAgentOverride",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-emulation-set-user-agent-override",
+        "params": {
+          "userAgent": {
+            "type": "text | null",
+            "required": true
+          },
+          "contexts": {
+            "type": "[+browsingContext.BrowsingContext]",
+            "required": false
+          },
+          "userContexts": {
+            "type": "[+browser.UserContext]",
+            "required": false
+          }
+        },
+        "placeholder": "{\"userAgent\":\"\"}"
+      }
+    }
+  },
+  "input": {
+    "commands": {
+      "input.performActions": {
+        "method": "input.performActions",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-input-perform-actions",
+        "params": {
+          "context": {
+            "type": "browsingContext.BrowsingContext",
+            "required": true
+          },
+          "actions": {
+            "type": "[*input.SourceActions]",
+            "required": true
+          }
+        },
+        "placeholder": "{\"context\":\"\",\"actions\":[]}"
+      },
+      "input.releaseActions": {
+        "method": "input.releaseActions",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-input-release-actions",
+        "params": {
+          "context": {
+            "type": "browsingContext.BrowsingContext",
+            "required": true
+          }
+        },
+        "placeholder": "{\"context\":\"\"}"
+      },
+      "input.setFiles": {
+        "method": "input.setFiles",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-input-set-files",
+        "params": {
+          "context": {
+            "type": "browsingContext.BrowsingContext",
+            "required": true
+          },
+          "element": {
+            "type": "script.SharedReference",
+            "required": true
+          },
+          "files": {
+            "type": "[*text]",
+            "required": true
+          }
+        },
+        "placeholder": "{\"context\":\"\",\"element\":{},\"files\":\"\"}"
       }
     }
   },
@@ -586,7 +596,7 @@ export const COMMAND_MODULES = {
             "required": false
           }
         },
-        "placeholder": "{\n  \"dataTypes\": [],\n  \"maxEncodedDataSize\": 0\n}"
+        "placeholder": "{\"dataTypes\":[],\"maxEncodedDataSize\":0}"
       },
       "network.addIntercept": {
         "method": "network.addIntercept",
@@ -605,7 +615,7 @@ export const COMMAND_MODULES = {
             "required": false
           }
         },
-        "placeholder": "{\n  \"phases\": []\n}"
+        "placeholder": "{\"phases\":[]}"
       },
       "network.continueRequest": {
         "method": "network.continueRequest",
@@ -636,7 +646,7 @@ export const COMMAND_MODULES = {
             "required": false
           }
         },
-        "placeholder": "{\n  \"request\": \"\"\n}"
+        "placeholder": "{\"request\":\"\"}"
       },
       "network.continueResponse": {
         "method": "network.continueResponse",
@@ -667,7 +677,7 @@ export const COMMAND_MODULES = {
             "required": false
           }
         },
-        "placeholder": "{\n  \"request\": \"\"\n}"
+        "placeholder": "{\"request\":\"\"}"
       },
       "network.continueWithAuth": {
         "method": "network.continueWithAuth",
@@ -678,7 +688,7 @@ export const COMMAND_MODULES = {
             "required": true
           }
         },
-        "placeholder": "{\n  \"request\": \"\"\n}"
+        "placeholder": "{\"request\":\"\"}"
       },
       "network.disownData": {
         "method": "network.disownData",
@@ -695,7 +705,7 @@ export const COMMAND_MODULES = {
             "required": true
           }
         },
-        "placeholder": "{\n  \"request\": \"\"\n}"
+        "placeholder": "{\"request\":\"\"}"
       },
       "network.getData": {
         "method": "network.getData",
@@ -718,7 +728,7 @@ export const COMMAND_MODULES = {
             "required": true
           }
         },
-        "placeholder": "{\n  \"dataType\": {},\n  \"request\": \"\"\n}"
+        "placeholder": "{\"dataType\":{},\"request\":\"\"}"
       },
       "network.provideResponse": {
         "method": "network.provideResponse",
@@ -749,7 +759,7 @@ export const COMMAND_MODULES = {
             "required": false
           }
         },
-        "placeholder": "{\n  \"request\": \"\"\n}"
+        "placeholder": "{\"request\":\"\"}"
       },
       "network.removeDataCollector": {
         "method": "network.removeDataCollector",
@@ -760,7 +770,7 @@ export const COMMAND_MODULES = {
             "required": true
           }
         },
-        "placeholder": "{\n  \"collector\": {}\n}"
+        "placeholder": "{\"collector\":{}}"
       },
       "network.removeIntercept": {
         "method": "network.removeIntercept",
@@ -771,7 +781,7 @@ export const COMMAND_MODULES = {
             "required": true
           }
         },
-        "placeholder": "{\n  \"intercept\": {}\n}"
+        "placeholder": "{\"intercept\":{}}"
       },
       "network.setCacheBehavior": {
         "method": "network.setCacheBehavior",
@@ -786,7 +796,7 @@ export const COMMAND_MODULES = {
             "required": false
           }
         },
-        "placeholder": "{\n  \"cacheBehavior\": \"\"\n}"
+        "placeholder": "{\"cacheBehavior\":\"\"}"
       },
       "network.setExtraHeaders": {
         "method": "network.setExtraHeaders",
@@ -805,7 +815,7 @@ export const COMMAND_MODULES = {
             "required": false
           }
         },
-        "placeholder": "{\n  \"headers\": []\n}"
+        "placeholder": "{\"headers\":[]}"
       }
     }
   },
@@ -836,22 +846,7 @@ export const COMMAND_MODULES = {
             "required": false
           }
         },
-        "placeholder": "{\n  \"functionDeclaration\": \"() => {}\"\n}"
-      },
-      "script.disown": {
-        "method": "script.disown",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-script-disown",
-        "params": {
-          "handles": {
-            "type": "[*script.Handle]",
-            "required": true
-          },
-          "target": {
-            "type": "script.Target;",
-            "required": true
-          }
-        },
-        "placeholder": "{\n  \"handles\": [],\n  \"target\": {\n    \"context\": \"\"\n  }\n}"
+        "placeholder": "{\"functionDeclaration\":\"() => {}\"}"
       },
       "script.callFunction": {
         "method": "script.callFunction",
@@ -890,7 +885,22 @@ export const COMMAND_MODULES = {
             "required": false
           }
         },
-        "placeholder": "{\n  \"functionDeclaration\": \"() => {}\",\n  \"awaitPromise\": false,\n  \"target\": {\n    \"context\": \"\"\n  }\n}"
+        "placeholder": "{\"functionDeclaration\":\"() => {}\",\"awaitPromise\":false,\"target\":{\"context\":\"\"}}"
+      },
+      "script.disown": {
+        "method": "script.disown",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-script-disown",
+        "params": {
+          "handles": {
+            "type": "[*script.Handle]",
+            "required": true
+          },
+          "target": {
+            "type": "script.Target;",
+            "required": true
+          }
+        },
+        "placeholder": "{\"handles\":[],\"target\":{\"context\":\"\"}}"
       },
       "script.evaluate": {
         "method": "script.evaluate",
@@ -921,7 +931,7 @@ export const COMMAND_MODULES = {
             "required": false
           }
         },
-        "placeholder": "{\n  \"expression\": \"\",\n  \"target\": {\n    \"context\": \"\"\n  },\n  \"awaitPromise\": false\n}"
+        "placeholder": "{\"expression\":\"\",\"target\":{\"context\":\"\"},\"awaitPromise\":false}"
       },
       "script.getRealms": {
         "method": "script.getRealms",
@@ -947,12 +957,66 @@ export const COMMAND_MODULES = {
             "required": true
           }
         },
-        "placeholder": "{\n  \"script\": \"\"\n}"
+        "placeholder": "{\"script\":\"\"}"
+      }
+    }
+  },
+  "session": {
+    "commands": {
+      "session.end": {
+        "method": "session.end",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-session-end",
+        "params": {},
+        "placeholder": "{}"
+      },
+      "session.new": {
+        "method": "session.new",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-session-new",
+        "params": {
+          "capabilities": {
+            "type": "session.CapabilitiesRequest",
+            "required": true
+          }
+        },
+        "placeholder": "{\"capabilities\":{}}"
+      },
+      "session.status": {
+        "method": "session.status",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-session-status",
+        "params": {},
+        "placeholder": "{}"
+      },
+      "session.subscribe": {
+        "method": "session.subscribe",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-session-subscribe",
+        "params": {},
+        "placeholder": "{}"
+      },
+      "session.unsubscribe": {
+        "method": "session.unsubscribe",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-session-unsubscribe",
+        "params": {},
+        "placeholder": "{}"
       }
     }
   },
   "storage": {
     "commands": {
+      "storage.deleteCookies": {
+        "method": "storage.deleteCookies",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-storage-delete-cookies",
+        "params": {
+          "filter": {
+            "type": "storage.CookieFilter",
+            "required": false
+          },
+          "partition": {
+            "type": "storage.PartitionDescriptor",
+            "required": false
+          }
+        },
+        "placeholder": "{}"
+      },
       "storage.getCookies": {
         "method": "storage.getCookies",
         "specUrl": "https://w3c.github.io/webdriver-bidi/#command-storage-get-cookies",
@@ -981,77 +1045,7 @@ export const COMMAND_MODULES = {
             "required": false
           }
         },
-        "placeholder": "{\n  \"cookie\": {}\n}"
-      },
-      "storage.deleteCookies": {
-        "method": "storage.deleteCookies",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-storage-delete-cookies",
-        "params": {
-          "filter": {
-            "type": "storage.CookieFilter",
-            "required": false
-          },
-          "partition": {
-            "type": "storage.PartitionDescriptor",
-            "required": false
-          }
-        },
-        "placeholder": "{}"
-      }
-    }
-  },
-  "input": {
-    "commands": {
-      "input.performActions": {
-        "method": "input.performActions",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-input-perform-actions",
-        "params": {
-          "context": {
-            "type": "browsingContext.BrowsingContext",
-            "required": true
-          },
-          "actions": {
-            "type": "[*input.SourceActions]",
-            "required": true
-          }
-        },
-        "placeholder": "{\n  \"context\": \"\",\n  \"actions\": []\n}"
-      },
-      "input.releaseActions": {
-        "method": "input.releaseActions",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-input-release-actions",
-        "params": {
-          "context": {
-            "type": "browsingContext.BrowsingContext",
-            "required": true
-          }
-        },
-        "placeholder": "{\n  \"context\": \"\"\n}"
-      },
-      "input.setFiles": {
-        "method": "input.setFiles",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-input-set-files",
-        "params": {
-          "context": {
-            "type": "browsingContext.BrowsingContext",
-            "required": true
-          },
-          "element": {
-            "type": "script.SharedReference",
-            "required": true
-          },
-          "files": {
-            "type": "[*text]",
-            "required": true
-          }
-        },
-        "placeholder": "{\n  \"context\": \"\",\n  \"element\": {},\n  \"files\": \"\"\n}"
-      },
-      "input.fileDialogOpened": {
-        "method": "input.fileDialogOpened",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-input-file-dialog-opened",
-        "params": {},
-        "placeholder": "{}"
+        "placeholder": "{\"cookie\":{}}"
       }
     }
   },
@@ -1066,7 +1060,7 @@ export const COMMAND_MODULES = {
             "required": true
           }
         },
-        "placeholder": "{\n  \"extensionData\": {}\n}"
+        "placeholder": "{\"extensionData\":{}}"
       },
       "webExtension.uninstall": {
         "method": "webExtension.uninstall",
@@ -1077,7 +1071,7 @@ export const COMMAND_MODULES = {
             "required": true
           }
         },
-        "placeholder": "{\n  \"extension\": {}\n}"
+        "placeholder": "{\"extension\":{}}"
       }
     }
   }

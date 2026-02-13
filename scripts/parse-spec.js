@@ -14,8 +14,12 @@ const path = require("path");
 const https = require("https");
 
 // Configuration
-const CDDL_URL = "https://raw.githubusercontent.com/w3c/webref/main/ed/cddl/webdriver-bidi-remote-cddl.cddl";
-const OUTPUT_PATH = path.join(__dirname, "../web/scripts/commands-generated.js");
+const CDDL_URL =
+  "https://raw.githubusercontent.com/w3c/webref/main/ed/cddl/webdriver-bidi-remote-cddl.cddl";
+const OUTPUT_PATH = path.join(
+  __dirname,
+  "../web/scripts/commands-generated.js",
+);
 const SPEC_BASE_URL = "https://w3c.github.io/webdriver-bidi/";
 
 /**
@@ -24,91 +28,164 @@ const SPEC_BASE_URL = "https://w3c.github.io/webdriver-bidi/";
 function fetchCDDL() {
   return new Promise((resolve, reject) => {
     console.log("Fetching CDDL from:", CDDL_URL);
-    https.get(CDDL_URL, (res) => {
-      let data = "";
-      res.on("data", (chunk) => data += chunk);
-      res.on("end", () => resolve(data));
-    }).on("error", reject);
+    https
+      .get(CDDL_URL, (res) => {
+        let data = "";
+        res.on("data", (chunk) => (data += chunk));
+        res.on("end", () => resolve(data));
+      })
+      .on("error", reject);
   });
 }
 
 /**
- * Parse the CDDL content and extract all commands (not events)
+ * Parse the CDDL content and extract all commands following CommandData structure
  */
 function parseCDDL(cddlContent) {
   console.log("Parsing CDDL commands...");
 
   const modules = {};
   const lines = cddlContent.split("\n");
-  const seenCommands = new Set(); // Track to avoid duplicates
 
-  // Find all command definitions
-  // Format: module.CommandName = (
-  //           method: "module.commandName",
-  //           params: module.CommandNameParameters
-  //         )
+  // Step 1: Find CommandData and extract the command union types
+  const commandUnions = extractCommandUnions(lines);
+  console.log(`Found command unions: ${commandUnions.join(", ")}`);
 
-  const commandRegex = /^([a-z][a-zA-Z]*)\.([A-Z][a-zA-Z]*)\s*=\s*\(/;
-  const eventSectionRegex = /^[A-Z][a-zA-Z]*Event\s*=\s*\(/;
+  // Step 2: For each command union, extract the actual commands
+  const allCommandNames = [];
+  for (const unionName of commandUnions) {
+    const commands = extractCommandsFromUnion(lines, unionName);
+    allCommandNames.push(...commands);
+  }
 
-  for (let i = 0; i < lines.length; i++) {
-    const line = lines[i];
+  console.log(`Found ${allCommandNames.length} total commands\n`);
 
-    // Stop when we reach the Events section
-    if (eventSectionRegex.test(line)) {
-      console.log("Reached events section, stopping command parsing");
-      break;
+  // Step 3: For each command, extract its details
+  for (const commandNamePascal of allCommandNames) {
+    const [moduleName, cmdNamePascal] = commandNamePascal.split(".");
+
+    // Convert to camelCase for method name: browser.Close -> browser.close
+    const cmdNameCamel =
+      cmdNamePascal.charAt(0).toLowerCase() + cmdNamePascal.slice(1);
+    const commandMethod = `${moduleName}.${cmdNameCamel}`;
+
+    // Find the command definition using PascalCase name
+    const commandDef = findCommandDefinition(lines, moduleName, cmdNamePascal);
+    if (!commandDef) {
+      console.log(
+        `Warning: Could not find definition for ${commandNamePascal}`,
+      );
+      continue;
     }
 
-    const match = line.match(commandRegex);
+    console.log(`Found: ${commandMethod}`);
 
-    if (match) {
-      const moduleName = match[1];
-      const commandName = match[2];
-
-      // Extract method name from next line
-      const methodLine = lines[i + 1];
-      const methodMatch = methodLine?.match(/method:\s*"([^"]+)"/);
-
-      if (!methodMatch) continue;
-
-      const method = methodMatch[1];
-
-      // Skip duplicates
-      if (seenCommands.has(method)) {
-        continue;
-      }
-      seenCommands.add(method);
-
-      console.log(`Found: ${method}`);
-
-      // Initialize module if needed
-      if (!modules[moduleName]) {
-        modules[moduleName] = { commands: {} };
-      }
-
-      // Extract parameters
-      const params = extractParametersFromCDDL(lines, i, moduleName, commandName);
-      const placeholder = generatePlaceholder(params);
-
-      modules[moduleName].commands[method] = {
-        method,
-        specUrl: generateSpecUrl(moduleName, commandName),
-        params,
-        placeholder,
-      };
+    // Initialize module if needed
+    if (!modules[moduleName]) {
+      modules[moduleName] = { commands: {} };
     }
+
+    // Extract parameters
+    const params = extractParametersFromCDDL(
+      lines,
+      commandDef.lineIndex,
+      moduleName,
+      cmdNamePascal,
+    );
+    const placeholder = generatePlaceholder(params);
+
+    modules[moduleName].commands[commandMethod] = {
+      method: commandMethod,
+      specUrl: generateSpecUrl(moduleName, cmdNamePascal),
+      params,
+      placeholder,
+    };
   }
 
   return modules;
 }
 
 /**
- * Generate spec URL from module and command name
+ * Extract command union names from CommandData
  */
-function generateSpecUrl(moduleName, commandName) {
-  // Convert CommandName to command-name for URL
-  const commandNameKebab = commandName
+function extractCommandUnions(lines) {
+  const unions = [];
+  let inCommandData = false;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+
+    if (line.match(/^CommandData\s*=\s*\(/)) {
+      inCommandData = true;
+      continue;
+    }
+
+    if (inCommandData) {
+      if (line.includes(")")) {
+        break;
+      }
+
+      const match = line.match(/^\s*([A-Z][a-zA-Z]+Command)\s*\/?\/?/);
+      if (match) {
+        unions.push(match[1]);
+      }
+    }
+  }
+
+  return unions;
+}
+
+/**
+ * Extract command names from a command union definition
+ */
+function extractCommandsFromUnion(lines, unionName) {
+  const commands = [];
+  let inUnion = false;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+
+    if (line.match(new RegExp(`^${unionName}\\s*=\\s*\\(`))) {
+      inUnion = true;
+      continue;
+    }
+
+    if (inUnion) {
+      if (line.includes(")")) {
+        break;
+      }
+
+      const match = line.match(/^\s*([a-z][a-zA-Z]*\.[A-Z][a-zA-Z]*)\s*\/?\/?/);
+      if (match) {
+        commands.push(match[1]);
+      }
+    }
+  }
+
+  return commands;
+}
+
+/**
+ * Find the definition line for a specific command
+ */
+function findCommandDefinition(lines, moduleName, commandName) {
+  const pattern = new RegExp(`^${moduleName}\\.${commandName}\\s*=\\s*\\(`);
+
+  for (let i = 0; i < lines.length; i++) {
+    if (pattern.test(lines[i])) {
+      return { lineIndex: i };
+    }
+  }
+
+  return null;
+}
+
+/**
+ * Generate spec URL from module and command name (PascalCase)
+ */
+function generateSpecUrl(moduleName, commandNamePascal) {
+  // Convert PascalCase CommandName to kebab-case command-name for URL
+  const commandNameKebab = commandNamePascal
     .replace(/([A-Z])/g, (m) => "-" + m.toLowerCase())
     .substring(1); // Remove leading dash
 
@@ -163,7 +240,9 @@ function parseParametersBlock(lines, startLine) {
     // Parse parameter line
     // Format: ? paramName: type,
     //         paramName: type,
-    const paramMatch = line.match(/^\s*(\?)?\s*([a-zA-Z][a-zA-Z0-9]*)\s*:\s*([^,]+),?\s*$/);
+    const paramMatch = line.match(
+      /^\s*(\?)?\s*([a-zA-Z][a-zA-Z0-9]*)\s*:\s*([^,]+),?\s*$/,
+    );
 
     if (paramMatch) {
       const optional = !!paramMatch[1];
@@ -184,14 +263,13 @@ function parseParametersBlock(lines, startLine) {
   return params;
 }
 
-
 /**
  * Clean up CDDL type notation for display
  */
 function cleanupType(type) {
   // Replace CDDL notation with more readable format
-  type = type.replace(/\s+\/\s+/g, " | ");  // Union types
-  type = type.replace(/\s+/g, " ");  // Normalize whitespace
+  type = type.replace(/\s+\/\s+/g, " | "); // Union types
+  type = type.replace(/\s+/g, " "); // Normalize whitespace
   return type;
 }
 
@@ -213,7 +291,7 @@ function generatePlaceholder(params) {
     return "{}";
   }
 
-  return JSON.stringify(obj, null, 2);
+  return JSON.stringify(obj);
 }
 
 /**
@@ -237,7 +315,8 @@ function getExampleValue(name, type) {
   // Check type patterns
   if (type.includes("text") || type.includes("string")) return "";
   if (type.includes("bool")) return false;
-  if (type.includes("number") || type.includes("int") || type.includes("uint")) return 0;
+  if (type.includes("number") || type.includes("int") || type.includes("uint"))
+    return 0;
   if (type.includes("[")) return [];
   if (type.includes("{") || type.includes(".")) return {};
 
@@ -312,7 +391,11 @@ async function main() {
       totalCommands += Object.keys(module.commands).length;
     }
 
-    console.log(`\nParsed ${totalCommands} commands from ${Object.keys(modules).length} modules`);
+    console.log(
+      `\nParsed ${totalCommands} commands from ${
+        Object.keys(modules).length
+      } modules`,
+    );
     console.log("Modules:", Object.keys(modules).join(", "));
 
     // Generate output
@@ -326,7 +409,6 @@ async function main() {
     console.log(`  Total commands: ${totalCommands}`);
     console.log(`  Output: ${OUTPUT_PATH}`);
     console.log(`  Source: ${CDDL_URL}`);
-
   } catch (error) {
     console.error("Error generating commands:", error.message);
     console.error(error.stack);
