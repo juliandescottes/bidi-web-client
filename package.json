@@ -2,7 +2,9 @@
   "name": "bidi-web-client",
   "version": "0.0.1",
   "description": "Basic web client for webdriver bidi",
-  "scripts": {},
+  "scripts": {
+    "build:commands": "node scripts/parse-spec.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/juliandescottes/bidi-web-client.git"
