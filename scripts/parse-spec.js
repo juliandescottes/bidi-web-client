@@ -345,10 +345,15 @@ function generateOutput(modules) {
 export const COMMAND_MODULES = ${JSON.stringify(modules, null, 2)};
 
 /**
- * Get all module names
+ * Get all module names (session first, then alphabetical)
  */
 export function getModuleNames() {
-  return Object.keys(COMMAND_MODULES);
+  const names = Object.keys(COMMAND_MODULES);
+  return names.sort((a, b) => {
+    if (a === "session") return -1;
+    if (b === "session") return 1;
+    return a.localeCompare(b);
+  });
 }
 
 /**
