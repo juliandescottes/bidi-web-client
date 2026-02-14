@@ -335,7 +335,12 @@ export class UI {
     for (const [name, info] of Object.entries(params)) {
       // Special handling for group choices
       if (info.isGroupChoice) {
-        lines.push(`<em>Plus one of:</em> ${info.type}`);
+        lines.push(`<em>Plus one of:</em>`);
+        // Split union types and display each on a separate line with indentation
+        const types = info.type.split(" | ");
+        for (const type of types) {
+          lines.push(`  • ${type}`);
+        }
         continue;
       }
 
