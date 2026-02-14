@@ -70,6 +70,11 @@ export const COMMAND_MODULES = {
           "clientWindow": {
             "type": "browser.ClientWindow",
             "required": true
+          },
+          "[one of]": {
+            "type": "browser.ClientWindowNamedState | browser.ClientWindowRectState",
+            "required": true,
+            "isGroupChoice": true
           }
         },
         "placeholder": "{\"clientWindow\":{}}"
@@ -368,6 +373,11 @@ export const COMMAND_MODULES = {
         "method": "emulation.setGeolocationOverride",
         "specUrl": "https://w3c.github.io/webdriver-bidi/#command-emulation-set-geolocation-override",
         "params": {
+          "[one of]": {
+            "type": "error: emulation.GeolocationPositionError",
+            "required": true,
+            "isGroupChoice": true
+          },
           "contexts": {
             "type": "[+browsingContext.BrowsingContext]",
             "required": false
@@ -401,8 +411,21 @@ export const COMMAND_MODULES = {
       "emulation.setNetworkConditions": {
         "method": "emulation.setNetworkConditions",
         "specUrl": "https://w3c.github.io/webdriver-bidi/#command-emulation-set-network-conditions",
-        "params": {},
-        "placeholder": "{}"
+        "params": {
+          "networkConditions": {
+            "type": "emulation.NetworkConditions | null",
+            "required": true
+          },
+          "contexts": {
+            "type": "[+browsingContext.BrowsingContext]",
+            "required": false
+          },
+          "userContexts": {
+            "type": "[+browser.UserContext]",
+            "required": false
+          }
+        },
+        "placeholder": "{\"networkConditions\":{}}"
       },
       "emulation.setScreenOrientationOverride": {
         "method": "emulation.setScreenOrientationOverride",
@@ -686,6 +709,11 @@ export const COMMAND_MODULES = {
           "request": {
             "type": "network.Request",
             "required": true
+          },
+          "[one of]": {
+            "type": "network.ContinueWithAuthCredentials | network.ContinueWithAuthNoCredentials",
+            "required": true,
+            "isGroupChoice": true
           }
         },
         "placeholder": "{\"request\":\"\"}"
@@ -693,8 +721,21 @@ export const COMMAND_MODULES = {
       "network.disownData": {
         "method": "network.disownData",
         "specUrl": "https://w3c.github.io/webdriver-bidi/#command-network-disown-data",
-        "params": {},
-        "placeholder": "{}"
+        "params": {
+          "dataType": {
+            "type": "network.DataType",
+            "required": true
+          },
+          "collector": {
+            "type": "network.Collector",
+            "required": true
+          },
+          "request": {
+            "type": "network.Request",
+            "required": true
+          }
+        },
+        "placeholder": "{\"dataType\":{},\"collector\":{},\"request\":\"\"}"
       },
       "network.failRequest": {
         "method": "network.failRequest",
@@ -989,14 +1030,41 @@ export const COMMAND_MODULES = {
       "session.subscribe": {
         "method": "session.subscribe",
         "specUrl": "https://w3c.github.io/webdriver-bidi/#command-session-subscribe",
-        "params": {},
-        "placeholder": "{}"
+        "params": {
+          "events": {
+            "type": "[+text]",
+            "required": true
+          },
+          "contexts": {
+            "type": "[+browsingContext.BrowsingContext]",
+            "required": false
+          },
+          "userContexts": {
+            "type": "[+browser.UserContext]",
+            "required": false
+          }
+        },
+        "placeholder": "{\"events\":[]}"
       },
       "session.unsubscribe": {
         "method": "session.unsubscribe",
         "specUrl": "https://w3c.github.io/webdriver-bidi/#command-session-unsubscribe",
-        "params": {},
-        "placeholder": "{}"
+        "params": {
+          "events": {
+            "type": "[+text]",
+            "required": true
+          },
+          "subscriptions": {
+            "type": "[+session.Subscription]",
+            "required": true
+          },
+          "[one of]": {
+            "type": "session.UnsubscribeByAttributesRequest | session.UnsubscribeByIDRequest",
+            "required": true,
+            "isGroupChoice": true
+          }
+        },
+        "placeholder": "{\"events\":[],\"subscriptions\":[]}"
       }
     }
   },

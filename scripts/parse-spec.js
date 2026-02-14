@@ -197,14 +197,64 @@ function generateSpecUrl(moduleName, commandNamePascal) {
  */
 function extractParametersFromCDDL(lines, startLine, moduleName, commandName) {
   // Look for parameters definition: module.CommandNameParameters = {
-  const paramsTypeName = `${moduleName}.${commandName}Parameters`;
+  // Try both PascalCase and camelCase (some commands use lowercase)
+  const paramsTypeNamePascal = `${moduleName}.${commandName}Parameters`;
+  const paramsTypeNameCamel = `${moduleName}.${commandName.charAt(0).toLowerCase() + commandName.slice(1)}Parameters`;
 
-  // Find the parameters definition
-  for (let i = startLine; i < Math.min(startLine + 100, lines.length); i++) {
+  // Parameter types can be defined anywhere in the file (often before the command)
+  // So we search the entire file, not just near the command definition
+  for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
 
-    if (line.includes(`${paramsTypeName} = {`)) {
+    // Check for direct struct definition
+    if (line.includes(`${paramsTypeNamePascal} = {`) || line.includes(`${paramsTypeNameCamel} = {`)) {
       // Found parameters block, parse it
+      return parseParametersBlock(lines, i + 1);
+    }
+
+    // Check for union type (e.g., Parameters = Type1 / Type2)
+    const unionMatch = line.match(new RegExp(`(${paramsTypeNamePascal}|${paramsTypeNameCamel})\\s*=\\s*([^{][^\\n]+)`));
+    if (unionMatch) {
+      const typeDef = unionMatch[2];
+
+      // Check if it's a union of types (contains //)
+      if (typeDef.includes('/')) {
+        const unionTypes = typeDef.split('/').map(t => t.trim());
+
+        // Collect parameters from all union member types
+        const allParams = {};
+        for (const typeName of unionTypes) {
+          const typeParams = findTypeDefinition(lines, typeName);
+          Object.assign(allParams, typeParams);
+        }
+
+        // If we found any parameters, add a note about the union
+        if (Object.keys(allParams).length > 0) {
+          allParams["[one of]"] = {
+            type: unionTypes.join(" | "),
+            required: true,
+            isGroupChoice: true,
+          };
+        }
+
+        return allParams;
+      }
+    }
+  }
+
+  return {};
+}
+
+/**
+ * Find and parse a type definition by name
+ */
+function findTypeDefinition(lines, typeName) {
+  const cleanTypeName = typeName.trim();
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+
+    if (line.includes(`${cleanTypeName} = {`)) {
       return parseParametersBlock(lines, i + 1);
     }
   }
@@ -234,6 +284,24 @@ function parseParametersBlock(lines, startLine) {
 
     // Skip empty lines and comments
     if (!line.trim() || line.trim().startsWith(";")) {
+      continue;
+    }
+
+    // Check for group choice (union of types)
+    // Format: (Type1 // Type2 // Type3)
+    const groupChoiceMatch = line.match(/^\s*\(([^)]+)\)\s*$/);
+    if (groupChoiceMatch) {
+      const types = groupChoiceMatch[1]
+        .split("//")
+        .map((t) => t.trim())
+        .filter((t) => t);
+
+      // Add a special entry for the group choice
+      params["[one of]"] = {
+        type: types.join(" | "),
+        required: true,
+        isGroupChoice: true,
+      };
       continue;
     }
 
@@ -281,6 +349,11 @@ function generatePlaceholder(params) {
 
   // Add all required params with empty/example values
   for (const [name, info] of Object.entries(params)) {
+    // Skip group choices in placeholder - they're informational only
+    if (info.isGroupChoice) {
+      continue;
+    }
+
     if (info.required) {
       obj[name] = getExampleValue(name, info.type);
     }

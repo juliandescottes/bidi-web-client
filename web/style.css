@@ -384,3 +384,8 @@ button[disabled] {
   font-weight: bold;
   color: #fff;
 }
+
+.command-hint em {
+  font-style: italic;
+  color: #ccc;
+}

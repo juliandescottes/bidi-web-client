@@ -333,6 +333,12 @@ export class UI {
 
     const lines = [];
     for (const [name, info] of Object.entries(params)) {
+      // Special handling for group choices
+      if (info.isGroupChoice) {
+        lines.push(`<em>Plus one of:</em> ${info.type}`);
+        continue;
+      }
+
       const required = info.required ? "required" : "optional";
       const defaultValue = info.default ? ` = ${info.default}` : "";
       lines.push(`<strong>${name}</strong>: ${info.type}${defaultValue} (${required})`);
