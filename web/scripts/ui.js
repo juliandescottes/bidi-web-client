@@ -84,6 +84,9 @@ export class UI {
       .querySelector("#module-panels")
       .addEventListener("mouseleave", this.#onHintMouseLeave, true);
     document
+      .querySelector("#module-panels")
+      .addEventListener("click", this.#onHintButtonClick, true);
+    document
       .querySelector("#connect")
       .addEventListener("click", this.#onConnectClick);
     document
@@ -387,17 +390,31 @@ export class UI {
       e.target.closest(".command")
     ) {
       const commandEl = e.target.closest(".command");
-      const params =
-        commandEl.querySelector("input[name=params]").value || "{}";
+      const paramsInput = commandEl.querySelector("input[name=params]");
+      const params = paramsInput.value || "{}";
+
+      // Try to parse params
+      let parsedParams;
+      try {
+        parsedParams = eval(`(${params})`);
+      } catch (error) {
+        // Invalid JSON/JS object - show error
+        paramsInput.classList.add("input-error");
+        setTimeout(() => {
+          paramsInput.classList.remove("input-error");
+        }, 2000);
+        return;
+      }
+
       if (commandEl.dataset.command.startsWith("CUSTOM")) {
         await this.#app.sendMessage({
           method: commandEl.querySelector("input[name=method]").value,
-          params: eval(`(${params})`),
+          params: parsedParams,
         });
       } else {
         await this.#app.sendMessage({
           method: commandEl.dataset.command,
-          params: eval(`(${params})`),
+          params: parsedParams,
         });
       }
     }
@@ -446,6 +463,35 @@ export class UI {
     const hint = e.target.querySelector(".command-hint");
     if (hint) {
       hint.style.display = "none";
+    }
+  };
+
+  #onHintButtonClick = (e) => {
+    if (!e.target.classList.contains("command-hint-button") &&
+        !e.target.classList.contains("hint-icon")) return;
+
+    // Get the hint button (could be the button itself or the icon inside)
+    const button = e.target.classList.contains("command-hint-button")
+      ? e.target
+      : e.target.closest(".command-hint-button");
+
+    if (!button) return;
+
+    // Find the params input in the same command
+    const commandEl = button.closest(".command");
+    if (!commandEl) return;
+
+    const paramsInput = commandEl.querySelector("input[name=params]");
+    if (!paramsInput) return;
+
+    // Only fill if the input is empty
+    if (paramsInput.value.trim() === "") {
+      const placeholder = paramsInput.getAttribute("placeholder");
+      if (placeholder) {
+        paramsInput.value = placeholder;
+        // Focus the input so user can see it was filled
+        paramsInput.focus();
+      }
     }
   };
 
