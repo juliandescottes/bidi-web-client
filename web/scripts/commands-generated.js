@@ -23,7 +23,7 @@ export const COMMAND_MODULES = {
       },
       "browser.createUserContext": {
         "method": "browser.createUserContext",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-browser-create-user-context",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-browser-createUserContext",
         "params": {
           "acceptInsecureCerts": {
             "type": "bool",
@@ -42,19 +42,19 @@ export const COMMAND_MODULES = {
       },
       "browser.getClientWindows": {
         "method": "browser.getClientWindows",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-browser-get-client-windows",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-browser-getClientWindows",
         "params": {},
         "placeholder": "{}"
       },
       "browser.getUserContexts": {
         "method": "browser.getUserContexts",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-browser-get-user-contexts",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-browser-getUserContexts",
         "params": {},
         "placeholder": "{}"
       },
       "browser.removeUserContext": {
         "method": "browser.removeUserContext",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-browser-remove-user-context",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-browser-removeUserContext",
         "params": {
           "userContext": {
             "type": "browser.UserContext",
@@ -65,7 +65,7 @@ export const COMMAND_MODULES = {
       },
       "browser.setClientWindowState": {
         "method": "browser.setClientWindowState",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-browser-set-client-window-state",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-browser-setClientWindowState",
         "params": {
           "clientWindow": {
             "type": "browser.ClientWindow",
@@ -81,7 +81,7 @@ export const COMMAND_MODULES = {
       },
       "browser.setDownloadBehavior": {
         "method": "browser.setDownloadBehavior",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-browser-set-download-behavior",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-browser-setDownloadBehavior",
         "params": {
           "downloadBehavior": {
             "type": "browser.DownloadBehavior | null",
@@ -111,7 +111,7 @@ export const COMMAND_MODULES = {
       },
       "browsingContext.captureScreenshot": {
         "method": "browsingContext.captureScreenshot",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-browsingContext-capture-screenshot",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-browsingContext-captureScreenshot",
         "params": {
           "context": {
             "type": "browsingContext.BrowsingContext",
@@ -172,7 +172,7 @@ export const COMMAND_MODULES = {
       },
       "browsingContext.getTree": {
         "method": "browsingContext.getTree",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-browsingContext-get-tree",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-browsingContext-getTree",
         "params": {
           "maxDepth": {
             "type": "js-uint",
@@ -187,7 +187,7 @@ export const COMMAND_MODULES = {
       },
       "browsingContext.handleUserPrompt": {
         "method": "browsingContext.handleUserPrompt",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-browsingContext-handle-user-prompt",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-browsingContext-handleUserPrompt",
         "params": {
           "context": {
             "type": "browsingContext.BrowsingContext",
@@ -206,7 +206,7 @@ export const COMMAND_MODULES = {
       },
       "browsingContext.locateNodes": {
         "method": "browsingContext.locateNodes",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-browsingContext-locate-nodes",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-browsingContext-locateNodes",
         "params": {
           "context": {
             "type": "browsingContext.BrowsingContext",
@@ -310,7 +310,7 @@ export const COMMAND_MODULES = {
       },
       "browsingContext.setViewport": {
         "method": "browsingContext.setViewport",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-browsingContext-set-viewport",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-browsingContext-setViewport",
         "params": {
           "context": {
             "type": "browsingContext.BrowsingContext",
@@ -333,7 +333,7 @@ export const COMMAND_MODULES = {
       },
       "browsingContext.traverseHistory": {
         "method": "browsingContext.traverseHistory",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-browsingContext-traverse-history",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-browsingContext-traverseHistory",
         "params": {
           "context": {
             "type": "browsingContext.BrowsingContext",
@@ -352,7 +352,7 @@ export const COMMAND_MODULES = {
     "commands": {
       "emulation.setForcedColorsModeThemeOverride": {
         "method": "emulation.setForcedColorsModeThemeOverride",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-emulation-set-forced-colors-mode-theme-override",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-emulation-setForcedColorsModeThemeOverride",
         "params": {
           "theme": {
             "type": "emulation.ForcedColorsModeTheme | null",
@@ -371,7 +371,7 @@ export const COMMAND_MODULES = {
       },
       "emulation.setGeolocationOverride": {
         "method": "emulation.setGeolocationOverride",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-emulation-set-geolocation-override",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-emulation-setGeolocationOverride",
         "params": {
           "[one of]": {
             "type": "error: emulation.GeolocationPositionError",
@@ -391,7 +391,7 @@ export const COMMAND_MODULES = {
       },
       "emulation.setLocaleOverride": {
         "method": "emulation.setLocaleOverride",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-emulation-set-locale-override",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-emulation-setLocaleOverride",
         "params": {
           "locale": {
             "type": "text | null",
@@ -410,7 +410,7 @@ export const COMMAND_MODULES = {
       },
       "emulation.setNetworkConditions": {
         "method": "emulation.setNetworkConditions",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-emulation-set-network-conditions",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-emulation-setNetworkConditions",
         "params": {
           "networkConditions": {
             "type": "emulation.NetworkConditions | null",
@@ -429,7 +429,7 @@ export const COMMAND_MODULES = {
       },
       "emulation.setScreenOrientationOverride": {
         "method": "emulation.setScreenOrientationOverride",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-emulation-set-screen-orientation-override",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-emulation-setScreenOrientationOverride",
         "params": {
           "screenOrientation": {
             "type": "emulation.ScreenOrientation | null",
@@ -448,7 +448,7 @@ export const COMMAND_MODULES = {
       },
       "emulation.setScreenSettingsOverride": {
         "method": "emulation.setScreenSettingsOverride",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-emulation-set-screen-settings-override",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-emulation-setScreenSettingsOverride",
         "params": {
           "screenArea": {
             "type": "emulation.ScreenArea | null",
@@ -467,7 +467,7 @@ export const COMMAND_MODULES = {
       },
       "emulation.setScriptingEnabled": {
         "method": "emulation.setScriptingEnabled",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-emulation-set-scripting-enabled",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-emulation-setScriptingEnabled",
         "params": {
           "enabled": {
             "type": "false | null",
@@ -486,7 +486,7 @@ export const COMMAND_MODULES = {
       },
       "emulation.setTimezoneOverride": {
         "method": "emulation.setTimezoneOverride",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-emulation-set-timezone-override",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-emulation-setTimezoneOverride",
         "params": {
           "timezone": {
             "type": "text | null",
@@ -505,7 +505,7 @@ export const COMMAND_MODULES = {
       },
       "emulation.setTouchOverride": {
         "method": "emulation.setTouchOverride",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-emulation-set-touch-override",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-emulation-setTouchOverride",
         "params": {
           "maxTouchPoints": {
             "type": "(js-uint .ge 1) | null",
@@ -524,7 +524,7 @@ export const COMMAND_MODULES = {
       },
       "emulation.setUserAgentOverride": {
         "method": "emulation.setUserAgentOverride",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-emulation-set-user-agent-override",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-emulation-setUserAgentOverride",
         "params": {
           "userAgent": {
             "type": "text | null",
@@ -547,7 +547,7 @@ export const COMMAND_MODULES = {
     "commands": {
       "input.performActions": {
         "method": "input.performActions",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-input-perform-actions",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-input-performActions",
         "params": {
           "context": {
             "type": "browsingContext.BrowsingContext",
@@ -562,7 +562,7 @@ export const COMMAND_MODULES = {
       },
       "input.releaseActions": {
         "method": "input.releaseActions",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-input-release-actions",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-input-releaseActions",
         "params": {
           "context": {
             "type": "browsingContext.BrowsingContext",
@@ -573,7 +573,7 @@ export const COMMAND_MODULES = {
       },
       "input.setFiles": {
         "method": "input.setFiles",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-input-set-files",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-input-setFiles",
         "params": {
           "context": {
             "type": "browsingContext.BrowsingContext",
@@ -596,7 +596,7 @@ export const COMMAND_MODULES = {
     "commands": {
       "network.addDataCollector": {
         "method": "network.addDataCollector",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-network-add-data-collector",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-network-addDataCollector",
         "params": {
           "dataTypes": {
             "type": "[+network.DataType]",
@@ -623,7 +623,7 @@ export const COMMAND_MODULES = {
       },
       "network.addIntercept": {
         "method": "network.addIntercept",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-network-add-intercept",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-network-addIntercept",
         "params": {
           "phases": {
             "type": "[+network.InterceptPhase]",
@@ -642,7 +642,7 @@ export const COMMAND_MODULES = {
       },
       "network.continueRequest": {
         "method": "network.continueRequest",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-network-continue-request",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-network-continueRequest",
         "params": {
           "request": {
             "type": "network.Request",
@@ -673,7 +673,7 @@ export const COMMAND_MODULES = {
       },
       "network.continueResponse": {
         "method": "network.continueResponse",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-network-continue-response",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-network-continueResponse",
         "params": {
           "request": {
             "type": "network.Request",
@@ -704,7 +704,7 @@ export const COMMAND_MODULES = {
       },
       "network.continueWithAuth": {
         "method": "network.continueWithAuth",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-network-continue-with-auth",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-network-continueWithAuth",
         "params": {
           "request": {
             "type": "network.Request",
@@ -720,7 +720,7 @@ export const COMMAND_MODULES = {
       },
       "network.disownData": {
         "method": "network.disownData",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-network-disown-data",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-network-disownData",
         "params": {
           "dataType": {
             "type": "network.DataType",
@@ -739,7 +739,7 @@ export const COMMAND_MODULES = {
       },
       "network.failRequest": {
         "method": "network.failRequest",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-network-fail-request",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-network-failRequest",
         "params": {
           "request": {
             "type": "network.Request",
@@ -750,7 +750,7 @@ export const COMMAND_MODULES = {
       },
       "network.getData": {
         "method": "network.getData",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-network-get-data",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-network-getData",
         "params": {
           "dataType": {
             "type": "network.DataType",
@@ -773,7 +773,7 @@ export const COMMAND_MODULES = {
       },
       "network.provideResponse": {
         "method": "network.provideResponse",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-network-provide-response",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-network-provideResponse",
         "params": {
           "request": {
             "type": "network.Request",
@@ -804,7 +804,7 @@ export const COMMAND_MODULES = {
       },
       "network.removeDataCollector": {
         "method": "network.removeDataCollector",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-network-remove-data-collector",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-network-removeDataCollector",
         "params": {
           "collector": {
             "type": "network.Collector",
@@ -815,7 +815,7 @@ export const COMMAND_MODULES = {
       },
       "network.removeIntercept": {
         "method": "network.removeIntercept",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-network-remove-intercept",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-network-removeIntercept",
         "params": {
           "intercept": {
             "type": "network.Intercept",
@@ -826,7 +826,7 @@ export const COMMAND_MODULES = {
       },
       "network.setCacheBehavior": {
         "method": "network.setCacheBehavior",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-network-set-cache-behavior",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-network-setCacheBehavior",
         "params": {
           "cacheBehavior": {
             "type": "\"default\" | \"bypass\"",
@@ -841,7 +841,7 @@ export const COMMAND_MODULES = {
       },
       "network.setExtraHeaders": {
         "method": "network.setExtraHeaders",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-network-set-extra-headers",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-network-setExtraHeaders",
         "params": {
           "headers": {
             "type": "[*network.Header]",
@@ -864,7 +864,7 @@ export const COMMAND_MODULES = {
     "commands": {
       "script.addPreloadScript": {
         "method": "script.addPreloadScript",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-script-add-preload-script",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-script-addPreloadScript",
         "params": {
           "functionDeclaration": {
             "type": "text",
@@ -891,7 +891,7 @@ export const COMMAND_MODULES = {
       },
       "script.callFunction": {
         "method": "script.callFunction",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-script-call-function",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-script-callFunction",
         "params": {
           "functionDeclaration": {
             "type": "text",
@@ -976,7 +976,7 @@ export const COMMAND_MODULES = {
       },
       "script.getRealms": {
         "method": "script.getRealms",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-script-get-realms",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-script-getRealms",
         "params": {
           "context": {
             "type": "browsingContext.BrowsingContext",
@@ -991,7 +991,7 @@ export const COMMAND_MODULES = {
       },
       "script.removePreloadScript": {
         "method": "script.removePreloadScript",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-script-remove-preload-script",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-script-removePreloadScript",
         "params": {
           "script": {
             "type": "script.PreloadScript",
@@ -1072,7 +1072,7 @@ export const COMMAND_MODULES = {
     "commands": {
       "storage.deleteCookies": {
         "method": "storage.deleteCookies",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-storage-delete-cookies",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-storage-deleteCookies",
         "params": {
           "filter": {
             "type": "storage.CookieFilter",
@@ -1087,7 +1087,7 @@ export const COMMAND_MODULES = {
       },
       "storage.getCookies": {
         "method": "storage.getCookies",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-storage-get-cookies",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-storage-getCookies",
         "params": {
           "filter": {
             "type": "storage.CookieFilter",
@@ -1102,7 +1102,7 @@ export const COMMAND_MODULES = {
       },
       "storage.setCookie": {
         "method": "storage.setCookie",
-        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-storage-set-cookie",
+        "specUrl": "https://w3c.github.io/webdriver-bidi/#command-storage-setCookie",
         "params": {
           "cookie": {
             "type": "storage.PartialCookie",

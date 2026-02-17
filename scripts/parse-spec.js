@@ -184,12 +184,10 @@ function findCommandDefinition(lines, moduleName, commandName) {
  * Generate spec URL from module and command name (PascalCase)
  */
 function generateSpecUrl(moduleName, commandNamePascal) {
-  // Convert PascalCase CommandName to kebab-case command-name for URL
-  const commandNameKebab = commandNamePascal
-    .replace(/([A-Z])/g, (m) => "-" + m.toLowerCase())
-    .substring(1); // Remove leading dash
+  // Convert PascalCase CommandName to camelCase commandName for URL
+  const commandNameCamel = commandNamePascal.charAt(0).toLowerCase() + commandNamePascal.slice(1);
 
-  return `${SPEC_BASE_URL}#command-${moduleName}-${commandNameKebab}`;
+  return `${SPEC_BASE_URL}#command-${moduleName}-${commandNameCamel}`;
 }
 
 /**
